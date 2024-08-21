@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import classNames from "classnames";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { ScrollView } from "@/components/layouts/View/View";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={classNames(
+          GeistSans.className,
+          " bg-slate-50 fixed overflow-hidden h-screen w-screen antialiased"
+        )}>
+        <ScrollView className="w-full" pb={0}>{children}</ScrollView>
+      </body>
     </html>
   );
 }
