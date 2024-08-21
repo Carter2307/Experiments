@@ -29,3 +29,5 @@ export default function Visualizer(props: VisualizerProps) {
     </Stack>
   );
 }
+
+Visualizer.displayName="Visualizer"

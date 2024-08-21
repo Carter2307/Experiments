@@ -18,3 +18,6 @@ export const ScrollView = (props: ScrollViewProps) => {
     </section>
   );
 };
+
+
+ScrollView.displayName="ScrollView";

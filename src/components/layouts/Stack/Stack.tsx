@@ -110,3 +110,5 @@ const HorizontalStack: React.FC<{
     </div>
   );
 };
+
+Stack.displayName= "Stack"
