@@ -42,7 +42,7 @@ export default function CollaborativeCursorClient(props: {
         </Stack>
 
         {/* Canvas*/}
-        <Visualizer alt={"*Ghost curors are removed after 30s on inactivity. Reload browser to reconnect."}>
+        <Visualizer alt={"*Ghost cursors are removed after 30s on inactivity. Reload browser to reconnect."}>
           <Canvas/>
         </Visualizer>
       </Stack>

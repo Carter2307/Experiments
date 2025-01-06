@@ -59,7 +59,7 @@ export default function Canvas() {
   React.useEffect(() => {
     function onSocketInit(initialCursors: Cursor[]) {
       if (initialCursors) {
-        console.log(initialCursors)
+        console.log(initialCursors);
         setUsers(initialCursors);
       }
     }
@@ -85,9 +85,9 @@ export default function Canvas() {
       console.log("connected");
     }
     function onDisconnect(id: string) {
-      setUsers(prev => {
-        return prev.filter(u => u.id !== id);
-      })
+      setUsers((prev) => {
+        return prev.filter((u) => u.id !== id);
+      });
       console.log("disconnected");
     }
 
@@ -195,8 +195,8 @@ function CursorBox(props: {
     document.addEventListener("mousemove", onMouseMove);
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove)
-    }
+      document.removeEventListener("mousemove", onMouseMove);
+    };
   }, [isOnCanvas]);
 
   React.useEffect(() => {
