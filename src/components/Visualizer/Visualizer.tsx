@@ -3,7 +3,7 @@ import { Stack } from "../layouts/Stack/Stack";
 
 export interface VisualizerProps extends React.ComponentProps<"div"> {
   height?: number;
-  alt?: string;
+  alt?: ReactNode;
 }
 
 export default function Visualizer(props: VisualizerProps) {

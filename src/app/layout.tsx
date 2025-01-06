@@ -16,12 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={classNames(
-          GeistSans.className,
-          " bg-slate-50 fixed overflow-hidden h-screen w-screen antialiased"
-        )}>
-        <ScrollView className="w-full" pb={0}>{children}</ScrollView>
+      <body className={classNames(GeistSans.className, "antialiased")}>
+        {children}
       </body>
     </html>
   );
