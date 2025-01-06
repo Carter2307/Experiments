@@ -3,13 +3,13 @@
 import React from "react";
 import { ShapeProps, ShapeKind } from "../../types";
 import Element, { ElementType } from "../core/Elements";
-import { AppContext } from "../../page";
+import { AppContext } from "../../context";
 
 const Shape = (props: ShapeProps) => {
   const defaultProperties: ShapeProps = {
     id: 0,
     type: ShapeKind.Square,
-    layout: { w: 48, h: 48 },
+    size: { w: 48, h: 48 },
     position: { x: 48, y: 48 },
     fill: "#e5e5e5",
     radius: {

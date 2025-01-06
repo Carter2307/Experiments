@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React from "react";
 
@@ -13,15 +13,15 @@ const line = {
 
 const Canva = (props: CanvaI) => {
   const { children, zoom: inititalZoom = 1, ...rest } = props;
-    const [zoom, setZoom] = React.useState(inititalZoom);
-    const pixels =  window.innerWidth
+  const [zoom, setZoom] = React.useState(inititalZoom);
+  const pixels =  0;
 
   const style = {
     height: `100%`,
     width: `100%`,
     transform: `scale(${zoom})`,
   };
-    
+
   const patternLines = [
     {
       id: "h-line",
@@ -43,11 +43,7 @@ const Canva = (props: CanvaI) => {
 
   return (
     <div className="h-full w-full bg-white">
-      <svg
-        className=""
-        {...rest}
-        viewBox={`0 0 ${pixels} ${pixels}`}
-      >
+      <svg className="" {...rest} viewBox={`0 0 ${pixels} ${pixels}`}>
         <g>
           <defs>
             <pattern
