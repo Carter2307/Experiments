@@ -70,10 +70,12 @@ export default function Page() {
           </Canva>
         </div>
 
-        <Inspector
-          currentShape={currentShape}
-          onUpdate={(newProps) => updateShape(currentShape.id, newProps)}
-        />
+        {currentShape && (
+          <Inspector
+            currentShape={currentShape}
+            onUpdate={(newProps) => updateShape(currentShape.id, newProps)}
+          />
+        )}
         {/* todo => Toolsbar */}
       </div>
     </AppProvider>

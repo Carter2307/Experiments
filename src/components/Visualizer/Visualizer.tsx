@@ -12,7 +12,7 @@ export default function Visualizer(props: VisualizerProps) {
   return (
     <Stack direction="col" gapy={8}>
       <div
-        className="overflow-hidden bg-gray-100 rounded-xl border-[1px] border-solid border-gray-200"
+        className="overflow-hidden bg-gray-50 rounded-3xl border-[1px] border-solid border-gray-100"
         style={{
           height: height + "px",
         }}
