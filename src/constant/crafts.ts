@@ -20,5 +20,9 @@ export const CRAFTS: Craft[] = [{
         title: "Prompt Box Attachment", date: "5 Jan 2025", url: "/animations/prompt-box-attachment",
         slug: "prompt-box-attachment",
         category: CraftCategory.animation
+    }, {
+        title: "Sticky content on scroll", date: "5 Jan 2025", url: "/animations/sticky-on-scroll",
+        slug: "sticky-on-scroll",
+        category: CraftCategory.animation
     }]
 }]
