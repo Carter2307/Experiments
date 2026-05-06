@@ -1,68 +1,30 @@
-"use client";
+'use client';
 
-import { Stack } from "@/components/layouts/Stack/Stack";
-import Tooltip from "@/components/Tooltip/Tooltip";
-import Visualizer from "@/components/Visualizer/Visualizer";
-import { IconCirclesRelation } from "@tabler/icons-react";
-import Canvas from "../../collaborative-cursors/components/Canvas";
-import { ReactNode } from "react";
-import assets from "./assets";
-import React from "react";
-import { delay, motion, useSpring } from "motion/react";
+import React from 'react';
+import assets from './assets';
+import { motion } from 'motion/react';
+import CraftWithVisualizer from '@/components/templates/CraftWithVisualizer.template';
+import { usePathname } from 'next/navigation';
+import { useCraft } from '@/hooks/useCraft';
 
 export default function PromptBoxAttachment() {
+  const pathname = usePathname();
+  const data = useCraft(pathname);
+
   return (
-    <section className="w-full max-w-[41rem] h-screen mx-auto">
-      <Stack direction="col" className="pt-40" gapy={48}>
-        {/*Head*/}
-        <Stack direction="row" align="center" justify="space-between">
-          <Stack direction="col" gapy={8}>
-            <h4 className="text-sm font-medium">Prompt Box Attachment</h4>
-            <p className="text-xs text-gray-500">05 Jan 2025</p>
-          </Stack>
-
-          <Tooltip.Provider>
-            <Tooltip.Root>
-              <Tooltip.Trigger asChild>
-                <button className="flex items-center justify-center h-9 w-9 aspect-square bg-gray-100 rounded-full">
-                  <IconCirclesRelation size={16} />
-                </button>
-              </Tooltip.Trigger>
-              <Tooltip.Portal>
-                <Tooltip.Content
-                  className="TooltipContent text-xs text-gray-600 bg-white py-2 px-4 rounded-xl shadow-sm"
-                  sideOffset={5}
-                >
-                  Copy link
-                </Tooltip.Content>
-              </Tooltip.Portal>
-            </Tooltip.Root>
-          </Tooltip.Provider>
-        </Stack>
-
-        <Visualizer
-          alt={
-            <span>
-              Original post on{" "}
-              <a
-                href="https://x.com/nitishkmrk/status/1875795617437696228"
-                className="font-medium underline"
-              >
-                X
-              </a>
-            </span>
-          }
-        >
+    <>
+      {data ? (
+        <CraftWithVisualizer detail={data}>
           <div className="h-full w-full flex items-center justify-center scale-150">
             <PromptBox />
           </div>
-        </Visualizer>
-      </Stack>
-    </section>
+        </CraftWithVisualizer>
+      ) : null}
+    </>
   );
 }
 
-interface PromptButtonProps extends React.ComponentProps<"button"> {
+interface PromptButtonProps extends React.ComponentProps<'button'> {
   color: string;
   icon: string;
   isPlusIcon?: boolean;
@@ -70,12 +32,12 @@ interface PromptButtonProps extends React.ComponentProps<"button"> {
 }
 
 enum IconColors {
-  Blue = "#1C73FF",
-  Green = "#24EC56",
-  Pink = "#E45DFF",
-  Marine = "#28D6FD",
-  Yellow = "#FFE11C",
-  Gray = "#EEEEEE",
+  Blue = '#1C73FF',
+  Green = '#24EC56',
+  Pink = '#E45DFF',
+  Marine = '#28D6FD',
+  Yellow = '#FFE11C',
+  Gray = '#EEEEEE',
 }
 
 const PromptButtonIcon = (props: PromptButtonProps) => {
@@ -84,9 +46,9 @@ const PromptButtonIcon = (props: PromptButtonProps) => {
 
   return (
     <motion.button
-      className={`shrink-0 grow-0 basis-8 h-8 w-8 flex items-center justify-center relative rounded-full overflow-hidden ${className ?? ""}`}
+      className={`shrink-0 grow-0 basis-8 h-8 w-8 flex items-center justify-center relative rounded-full overflow-hidden ${className ?? ''}`}
       style={{ background: `${color}` }}
-      animate={{ rotate: isRotated ? "45deg" : 0 }}
+      animate={{ rotate: isRotated ? '45deg' : 0 }}
       transition={{ duration: 0.5 }}
       onClick={() => {
         if (isPlusIcon) {
@@ -103,13 +65,7 @@ const PromptButtonIcon = (props: PromptButtonProps) => {
       />
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={icon}
-        alt="Icon"
-        height={18}
-        width={18}
-        style={{ opacity: 0.6 }}
-      />
+      <img src={icon} alt="Icon" height={18} width={18} style={{ opacity: 0.6 }} />
     </motion.button>
   );
 };
@@ -134,19 +90,19 @@ const PromptBox = () => {
 };
 
 const PromptBoxInput = ({ animate }: { animate: boolean }) => {
-  const placeholder = "Whats on your mind?";
+  const placeholder = 'Whats on your mind?';
 
   return (
     <motion.div
       className="flex flex-row items-center h-8 grow-[1]"
-      initial={{ "--blur": "0px", x: 0, opacity: 1 }}
+      initial={{ '--blur': '0px', x: 0, opacity: 1 }}
       animate={{
-        "--blur": animate ? `10px` : "0px",
+        '--blur': animate ? `10px` : '0px',
         x: animate ? 32 : 0,
         opacity: animate ? 0 : 1,
       }}
       transition={{
-        type: "spring",
+        type: 'spring',
         stiffness: 80,
         damping: 10,
         mass: 1,
@@ -163,7 +119,7 @@ const PromptBoxInput = ({ animate }: { animate: boolean }) => {
       <PromptButtonIcon
         color={IconColors.Blue}
         icon={assets.RightIcon.src}
-        onClick={() => console.log("clicked")}
+        onClick={() => console.log('clicked')}
       />
     </motion.div>
   );
@@ -200,26 +156,26 @@ const PromptBoxAction = ({ animate }: { animate: boolean }) => {
               key={btn.icon}
               initial={{
                 x: -distance,
-                rotate: "-90deg",
-                "--blur": "4px",
+                rotate: '-90deg',
+                '--blur': '4px',
                 opacity: 0,
               }}
               animate={{
                 x: animate ? (distance - 2) / 32 : -distance,
-                rotate: animate ? 0 : "-90deg",
+                rotate: animate ? 0 : '-90deg',
                 opacity: animate ? 1 : 0,
-                "--blur": animate ? "0px" : "4px",
+                '--blur': animate ? '0px' : '4px',
 
                 transition: {
                   default: {
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 80,
                     damping: 12,
                     duration: 1.8,
                   },
-                  "--blur": { delay: 0.1 },
+                  '--blur': { delay: 0.1 },
                   rotate: {
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 80,
                     damping: 12,
                     duration: 2,
@@ -227,7 +183,7 @@ const PromptBoxAction = ({ animate }: { animate: boolean }) => {
                   },
                 },
               }}
-              style={{ filter: "blur(var(--blur))" }}
+              style={{ filter: 'blur(var(--blur))' }}
             >
               <PromptButtonIcon color={btn.color} icon={btn.icon} />
             </motion.div>
