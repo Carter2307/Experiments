@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useMousePosition } from "@/components/hook";
-import React, { Fragment, useState } from "react";
-import { socket } from "../socket";
-import { Stack } from "@/components/layouts/Stack/Stack";
+import { useMousePosition } from '@/hooks/useMousePosition';
+import React, { Fragment, useState } from 'react';
+import { socket } from '../socket';
+import { Stack } from '@/components/layouts/Stack/Stack';
 
 interface Cursor {
   id: string;
@@ -35,9 +35,7 @@ function generateCursorWithColor(color: string) {
 
 export default function Canvas() {
   const [isOnCanvas, setIsOnCanvas] = React.useState(false);
-  const [users, setUsers] = React.useState<
-    { id: string; x: number; y: number }[]
-  >([]);
+  const [users, setUsers] = React.useState<{ id: string; x: number; y: number }[]>([]);
   const canvasRef = React.useRef<HTMLDivElement>(null);
   const mousePos = useMousePosition();
 
@@ -82,13 +80,13 @@ export default function Canvas() {
     }
 
     function onConnect() {
-      console.log("connected");
+      console.log('connected');
     }
     function onDisconnect(id: string) {
       setUsers((prev) => {
         return prev.filter((u) => u.id !== id);
       });
-      console.log("disconnected");
+      console.log('disconnected');
     }
 
     function onNewUser(data: any) {
@@ -96,21 +94,21 @@ export default function Canvas() {
       setUsers((prev) => [...prev, data]);
     }
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-    socket.on("user_disconnected", onDisconnect);
+    socket.on('connect', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('user_disconnected', onDisconnect);
 
-    socket.on("init", onSocketInit);
-    socket.on("new_user", onNewUser);
-    socket.on("cursor_move", onCursorMove);
+    socket.on('init', onSocketInit);
+    socket.on('new_user', onNewUser);
+    socket.on('cursor_move', onCursorMove);
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      socket.off("init", onSocketInit);
-      socket.off("cursor_move", onCursorMove);
-      socket.off("new_user", onNewUser);
-      socket.off("user_disconnected", onDisconnect);
+      socket.off('connect', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('init', onSocketInit);
+      socket.off('cursor_move', onCursorMove);
+      socket.off('new_user', onNewUser);
+      socket.off('user_disconnected', onDisconnect);
     };
   }, []);
 
@@ -166,9 +164,9 @@ function CursorBox(props: {
     showPointer = false,
   } = props;
   const boxRef = React.useRef<HTMLDivElement>(null);
-  const cursorTextBoxGap = 8;
+  const cursorTextBoxGap = 4;
   const [cursor, setCursor] = React.useState<string>();
-  const [color, setColor] = React.useState<string>("#000");
+  const [color, setColor] = React.useState<string>('#000');
 
   React.useEffect(() => {
     if (!isCurrentUser) {
@@ -188,14 +186,14 @@ function CursorBox(props: {
 
     function onMouseMove(e: MouseEvent) {
       if (isOnCanvas) {
-        socket.emit("cursor_move", { x: e.x, y: e.y });
+        socket.emit('cursor_move', { x: e.x, y: e.y });
       }
     }
 
-    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener('mousemove', onMouseMove);
 
     return () => {
-      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener('mousemove', onMouseMove);
     };
   }, [isOnCanvas]);
 
@@ -205,8 +203,8 @@ function CursorBox(props: {
       const canvas = canvasRef.current;
 
       if (boxRef && canvas) {
-        const computedY = `${mousePosition.y - canvas.getBoundingClientRect().y - box.clientHeight / 2}`;
-        const computedX = `${mousePosition.x - canvas.getBoundingClientRect().x - box.clientWidth / 2}`;
+        const computedY = `${mousePosition.y - canvas.getBoundingClientRect().y}`;
+        const computedX = `${mousePosition.x - canvas.getBoundingClientRect().x}`;
         boxRef.current.style.top = `${computedY}px`;
         boxRef.current.style.left = `${computedX}px`;
       }
@@ -214,10 +212,16 @@ function CursorBox(props: {
   }, [isOnCanvas, boxRef, mousePosition]);
 
   return (
-    <Stack direction="col" className="absolute" ref={boxRef} gapy={4} key={id}>
+    <Stack
+      direction="col"
+      className="absolute"
+      ref={boxRef}
+      gapy={4}
+      key={id}
+    >
       {cursor && (
         <img
-          className="relative h-6 w-6 left-[-16px]"
+          className="relative h-5 w-5"
           src={cursor}
           style={{
             zIndex: isCurrentUser ? 1 : 0,
@@ -225,14 +229,14 @@ function CursorBox(props: {
         />
       )}
       <div
-        className="inline-block relative capitalize whitespace-nowrap  py-2 pl-4 pr-5 text-white font-semibold text-sm rounded-[1.5rem] rounded-tl-[2px]  will-change-transform"
+        className="inline-block absolute top-4 left-4 capitalize whitespace-nowrap  py-2 pl-4 pr-5 text-white font-semibold text-sm rounded-[1.5rem] rounded-tl-[2px]  will-change-transform"
         style={{
-          transformOrigin: "top left",
-          backgroundColor: isCurrentUser ? "black" : color,
+          transformOrigin: 'top left',
+          backgroundColor: isCurrentUser ? 'black' : color,
           zIndex: isCurrentUser ? 1 : 0,
         }}
       >
-        {isCurrentUser ? "You" : label}
+        {isCurrentUser ? 'You' : label}
       </div>
     </Stack>
   );
